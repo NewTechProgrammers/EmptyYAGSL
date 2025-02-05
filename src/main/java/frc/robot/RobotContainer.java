@@ -19,6 +19,7 @@ import frc.robot.subsystems.swervedrive.SwerveSubsystem;
 import swervelib.SwerveInputStream;
 
 import java.io.File;
+import java.util.function.DoubleSupplier;
 
 /*
  * This class is where the bulk of the robot should be declared.  Since Command-based is a
@@ -33,6 +34,7 @@ public class RobotContainer {
         private final SwerveSubsystem drivebase = new SwerveSubsystem(
                         new File(Filesystem.getDeployDirectory(), "swerve"));
 
+        DoubleSupplier driverXboxRightXInverted = () -> -new XboxController(OperatorConstants.kDriverControllerPort).getRightX(); 
         /**
          * Converts driver input into a field-relative ChassisSpeeds that is controlled
          * by angular velocity.
@@ -40,7 +42,7 @@ public class RobotContainer {
         SwerveInputStream driveAngularVelocity = SwerveInputStream.of(drivebase.getSwerveDrive(),
                         () -> driverXbox.getLeftY() * 1,
                         () -> driverXbox.getLeftX() * 1)
-                        .withControllerRotationAxis(driverXbox::getRightX)
+                        .withControllerRotationAxis(driverXboxRightXInverted)
                         .deadband(OperatorConstants.DEADBAND)
                         .scaleTranslation(0.8)
                         .allianceRelativeControl(true);
