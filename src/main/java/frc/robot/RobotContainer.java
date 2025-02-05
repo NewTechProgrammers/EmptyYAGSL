@@ -38,8 +38,8 @@ public class RobotContainer {
          * by angular velocity.
          */
         SwerveInputStream driveAngularVelocity = SwerveInputStream.of(drivebase.getSwerveDrive(),
-                        () -> driverXbox.getLeftY() * -1,
-                        () -> driverXbox.getLeftX() * -1)
+                        () -> driverXbox.getLeftY() * 1,
+                        () -> driverXbox.getLeftX() * 1)
                         .withControllerRotationAxis(driverXbox::getRightX)
                         .deadband(OperatorConstants.DEADBAND)
                         .scaleTranslation(0.8)
@@ -82,7 +82,7 @@ public class RobotContainer {
                 Command driveFieldOrientedAnglularVelocity = drivebase.driveFieldOriented(driveAngularVelocity);
                 Command driveRobotOrientedAngularVelocity = drivebase.driveFieldOriented(driveRobotOriented);
 
-                drivebase.setDefaultCommand(driveRobotOrientedAngularVelocity);
+                drivebase.setDefaultCommand(driveFieldOrientedAnglularVelocity);
 
                 driverXbox.a().onTrue((Commands.runOnce(drivebase::zeroGyro)));
                 driverXbox.start().whileTrue(Commands.none());

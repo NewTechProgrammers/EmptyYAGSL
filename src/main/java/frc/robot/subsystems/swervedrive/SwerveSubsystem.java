@@ -1,6 +1,6 @@
 package frc.robot.subsystems.swervedrive;
 
-import static edu.wpi.first.units.Units.Meter; 
+import static edu.wpi.first.units.Units.Meter;
 import java.io.File;
 import java.util.Arrays;
 import java.util.function.DoubleSupplier;
@@ -19,7 +19,6 @@ import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Config;
 import swervelib.parser.SwerveControllerConfiguration;
 import swervelib.parser.SwerveDriveConfiguration;
 import swervelib.parser.SwerveParser;
-
 import swervelib.SwerveDrive;
 import swervelib.SwerveDriveTest;
 import swervelib.math.SwerveMath;
@@ -35,17 +34,17 @@ public class SwerveSubsystem extends SubsystemBase {
     public SwerveSubsystem(File directory) {
         try {
             swerveDrive = new SwerveParser(directory).createSwerveDrive(Constants.MAX_SPEED,
-                    new Pose2d(new Translation2d(Meter.of(1), Meter.of(4)), Rotation2d.fromDegrees(0)));
+                    new Pose2d(new Translation2d(Meter.of(1), Meter.of(4)), Rotation2d.fromDegrees(0))); // #TIP May be needed 180
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
 
         swerveDrive.setHeadingCorrection(false);
-        swerveDrive.setCosineCompensator(false);
+        swerveDrive.setCosineCompensator(true);
         swerveDrive.setAngularVelocityCompensation(true,
                 true,
                 0.1);
-        swerveDrive.setModuleEncoderAutoSynchronize(false, 0);
+        swerveDrive.setModuleEncoderAutoSynchronize(true, 1);
         swerveDrive.pushOffsetsToEncoders();
     }
 
