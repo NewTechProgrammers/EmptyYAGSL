@@ -1,7 +1,6 @@
 package frc.robot.subsystems.swervedrive;
 
-import static edu.wpi.first.units.Units.Meter;
-//jo jo jo helo helo helo this is me vip mtv sigma skibidi patric texas king of tiktok king of hollywood welcome in przesuperowy kod 
+import static edu.wpi.first.units.Units.Meter; 
 import java.io.File;
 import java.util.Arrays;
 import java.util.function.DoubleSupplier;
@@ -136,36 +135,6 @@ public class SwerveSubsystem extends SubsystemBase {
                     false);
         });
     }
-
-    // /**
-    //  * Command to drive the robot using translative values and heading as a
-    //  * setpoint.
-    //  *
-    //  * @param translationX Translation in the X direction. Cubed for smoother
-    //  *                     controls.
-    //  * @param translationY Translation in the Y direction. Cubed for smoother
-    //  *                     controls.
-    //  * @param headingX     Heading X to calculate angle of the joystick.
-    //  * @param headingY     Heading Y to calculate angle of the joystick.
-    //  * @return Drive command.
-    //  */
-    // public Command driveCommand(DoubleSupplier translationX, DoubleSupplier translationY, DoubleSupplier headingX,
-    //         DoubleSupplier headingY) {
-    //     // swerveDrive.setHeadingCorrection(true); // Normally you would want heading
-    //     // correction for this kind of control.
-    //     return run(() -> {
-
-    //         Translation2d scaledInputs = SwerveMath.scaleTranslation(new Translation2d(translationX.getAsDouble(),
-    //                 translationY.getAsDouble()), 0.8);
-
-    //         // Make the robot move
-    //         driveFieldOriented(swerveDrive.swerveController.getTargetSpeeds(scaledInputs.getX(), scaledInputs.getY(),
-    //                 headingX.getAsDouble(),
-    //                 headingY.getAsDouble(),
-    //                 swerveDrive.getOdometryHeading().getRadians(),
-    //                 swerveDrive.getMaximumChassisVelocity()));
-    //     });
-    // }
 
     /**
      * Drive the robot given a chassis field oriented velocity.
