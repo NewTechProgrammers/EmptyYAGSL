@@ -4,6 +4,7 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.XboxController;
@@ -16,6 +17,8 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
 import frc.robot.subsystems.swervedrive.SwerveSubsystem;
+import frc.robot.subsystems.Elevator;
+
 import swervelib.SwerveInputStream;
 
 import java.io.File;
@@ -32,10 +35,14 @@ import com.pathplanner.lib.auto.NamedCommands;
 public class RobotContainer {
 
         final CommandXboxController driverXbox = new CommandXboxController(OperatorConstants.kDriverControllerPort);
+        final CommandXboxController supportXbox = new CommandXboxController(1);
+
         // The robot's subsystems and commands are defined here...
         private final SwerveSubsystem drivebase = new SwerveSubsystem(
                         new File(Filesystem.getDeployDirectory(), "swerve"));
 
+        private final Elevator elevator = new Elevator();
+        
         DoubleSupplier driverXboxRightXInverted = () -> -new XboxController(OperatorConstants.kDriverControllerPort)
                         .getRightX();
         /**
@@ -95,6 +102,11 @@ public class RobotContainer {
                 driverXbox.back().whileTrue(Commands.none());
                 driverXbox.leftBumper().whileTrue(Commands.runOnce(drivebase::lock, drivebase).repeatedly());
                 driverXbox.rightBumper().onTrue(Commands.none());
+                
+                supportXbox.leftBumper().onTrue(Commands.runOnce(elevator::runDown, elevator).repeatedly());
+                supportXbox.rightBumper().onTrue(Commands.runOnce(elevator::runUp, elevator).repeatedly());
+                supportXbox.b().toggleOnTrue(Commands.runOnce(elevator::stop, elevator));
+                supportXbox.a().toggleOnTrue(Commands.runOnce(elevator::SetReferenceTest, elevator));
         }
 
         public void setMotorBrake(boolean brake) {
