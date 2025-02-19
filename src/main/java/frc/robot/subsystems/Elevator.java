@@ -47,15 +47,15 @@ public class Elevator extends SubsystemBase {
     }
 
     public boolean isTopLimitSwitchPressed() {
-        return topLimitSwitch.get();
+        return !topLimitSwitch.get();
     }
 
     public boolean isBottomLimitSwitchPressed() {
-        return bottomLimitSwitch.get();
+        return !bottomLimitSwitch.get();
     }
 
     public void runUp() {
-        if (!isTopLimitSwitchPressed()) {
+        if (isTopLimitSwitchPressed()) {
             intakeMotor.set(0);
         } else {
             intakeMotor.set(0.15);
@@ -64,7 +64,7 @@ public class Elevator extends SubsystemBase {
     }
 
     public void runDown() {
-        if (!isBottomLimitSwitchPressed()) {
+        if (isBottomLimitSwitchPressed()) {
             intakeMotor.set(0);
         } else {
             intakeMotor.set(-0.15);
