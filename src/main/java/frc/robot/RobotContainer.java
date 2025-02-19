@@ -10,7 +10,8 @@ import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.XboxController;
 
 import frc.robot.Constants.OperatorConstants;
-
+import frc.robot.commands.elevator.LowerElevatorCommand;
+import frc.robot.commands.elevator.RaiseElevatorCommand;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
@@ -103,10 +104,10 @@ public class RobotContainer {
                 driverXbox.leftBumper().whileTrue(Commands.runOnce(drivebase::lock, drivebase).repeatedly());
                 driverXbox.rightBumper().onTrue(Commands.none());
                 
-                supportXbox.leftBumper().onTrue(Commands.runOnce(elevator::runDown, elevator).repeatedly());
-                supportXbox.rightBumper().onTrue(Commands.runOnce(elevator::runUp, elevator).repeatedly());
+                supportXbox.leftBumper().whileTrue(new LowerElevatorCommand(elevator));
+                supportXbox.rightBumper().whileTrue(new RaiseElevatorCommand(elevator));
+
                 supportXbox.b().toggleOnTrue(Commands.runOnce(elevator::stop, elevator));
-                supportXbox.a().toggleOnTrue(Commands.runOnce(elevator::SetReferenceTest, elevator));
         }
 
         public void setMotorBrake(boolean brake) {

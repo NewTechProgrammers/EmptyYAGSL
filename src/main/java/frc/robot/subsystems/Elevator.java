@@ -27,13 +27,15 @@ public class Elevator extends SubsystemBase {
                 .inverted(false)
                 .idleMode(IdleMode.kBrake);
         intakeMotorConfig.encoder
-                .positionConversionFactor(1000)
-                .velocityConversionFactor(1000);
+                .positionConversionFactor(2.0)
+                .velocityConversionFactor(2.0);
         intakeMotorConfig.closedLoop
                 .feedbackSensor(FeedbackSensor.kPrimaryEncoder)
-                .pid(0.1, 0.0, 0.0);
+                .pid(0.001, 0.0, 0.0);
 
         intakeMotor.configure(intakeMotorConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
+
+        intakeMotor.getEncoder().setPosition(0);
 
         SmartDashboard.putBoolean("Elevator", false);
     }
@@ -53,10 +55,8 @@ public class Elevator extends SubsystemBase {
     }
 
     public void runUp() {
-        if (!topLimitSwitch.get()) {
+        if (!isTopLimitSwitchPressed()) {
             intakeMotor.set(0);
-            System.out.println("TOP LIMIT SWITCH CLICKED!\n");
-
         } else {
             intakeMotor.set(0.15);
 
@@ -64,9 +64,8 @@ public class Elevator extends SubsystemBase {
     }
 
     public void runDown() {
-        if (!bottomLimitSwitch.get()) {
+        if (!isBottomLimitSwitchPressed()) {
             intakeMotor.set(0);
-            System.out.println("BOTTOM LIMIT SWITCH CLICKED!\n");
         } else {
             intakeMotor.set(-0.15);
         }
@@ -77,15 +76,4 @@ public class Elevator extends SubsystemBase {
         intakeMotor.set(0);
     }
 
-    public void SetReferenceTest() {
-        if (!bottomLimitSwitch.get() || !topLimitSwitch.get()) {
-            intakeMotor.set(0);
-
-        } else {
-            intakeMotorPIDController.setReference(20, ControlType.kPosition);
-
-        }
-    }
-
-    
 }
