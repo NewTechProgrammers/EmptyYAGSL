@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.XboxController;
 
 import frc.robot.Constants.OperatorConstants;
+import frc.robot.commands.elevator.ElevatorToPositionCommand;
 import frc.robot.commands.elevator.LowerElevatorCommand;
 import frc.robot.commands.elevator.RaiseElevatorCommand;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -107,6 +108,9 @@ public class RobotContainer {
                 supportXbox.rightBumper().whileTrue(new RaiseElevatorCommand(elevator));
 
                 supportXbox.b().toggleOnTrue(Commands.runOnce(elevator::stop, elevator));
+
+                supportXbox.a().onTrue(new ElevatorToPositionCommand(elevator, 450.0));
+                supportXbox.x().onTrue(new ElevatorToPositionCommand(elevator, 20));
         }
 
         public void setMotorBrake(boolean brake) {
