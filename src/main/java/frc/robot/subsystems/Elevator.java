@@ -15,27 +15,27 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Elevator extends SubsystemBase {
-    private final SparkMax intakeMotor = new SparkMax(18, MotorType.kBrushless);
-    private final SparkMaxConfig intakeMotorConfig = new SparkMaxConfig();
-    private final SparkClosedLoopController intakeMotorPIDController = intakeMotor.getClosedLoopController();
+    private final SparkMax elevatorMotor = new SparkMax(18, MotorType.kBrushless);
+    private final SparkMaxConfig elevatorMotorConfig = new SparkMaxConfig();
+    private final SparkClosedLoopController elevatorMotorPIDController = elevatorMotor.getClosedLoopController();
 
     DigitalInput topLimitSwitch = new DigitalInput(9);
     DigitalInput bottomLimitSwitch = new DigitalInput(8);
 
     public Elevator() {
-        intakeMotorConfig
+        elevatorMotorConfig
                 .inverted(false)
                 .idleMode(IdleMode.kBrake);
-        intakeMotorConfig.encoder
+        elevatorMotorConfig.encoder
                 .positionConversionFactor(2.0)
                 .velocityConversionFactor(2.0);
-        intakeMotorConfig.closedLoop
+        elevatorMotorConfig.closedLoop
                 .feedbackSensor(FeedbackSensor.kPrimaryEncoder)
                 .pid(0.001, 0.0, 0.0);
 
-        intakeMotor.configure(intakeMotorConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
+        elevatorMotor.configure(elevatorMotorConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
 
-        intakeMotor.getEncoder().setPosition(0);
+        elevatorMotor.getEncoder().setPosition(0);
 
         SmartDashboard.putBoolean("Elevator", false);
     }
@@ -56,24 +56,23 @@ public class Elevator extends SubsystemBase {
 
     public void runUp() {
         if (isTopLimitSwitchPressed()) {
-            intakeMotor.set(0);
+            elevatorMotor.set(0);
         } else {
-            intakeMotor.set(0.15);
-
+            elevatorMotor.set(0.4);
         }
     }
 
     public void runDown() {
         if (isBottomLimitSwitchPressed()) {
-            intakeMotor.set(0);
+            elevatorMotor.set(0);
         } else {
-            intakeMotor.set(-0.15);
+            elevatorMotor.set(-0.4);
         }
 
     }
 
     public void stop() {
-        intakeMotor.set(0);
+        elevatorMotor.set(0);
     }
 
 }
