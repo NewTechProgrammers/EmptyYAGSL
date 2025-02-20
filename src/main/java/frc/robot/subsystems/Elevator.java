@@ -44,6 +44,7 @@ public class Elevator extends SubsystemBase {
     public void periodic() {
         SmartDashboard.putBoolean("topLimitSwitch", isTopLimitSwitchPressed());
         SmartDashboard.putBoolean("bottomLimitSwitch", isBottomLimitSwitchPressed());
+        SmartDashboard.putNumber("ELEVATOR ENCODER", getPosition());
     }
 
     public boolean isTopLimitSwitchPressed() {
@@ -73,6 +74,10 @@ public class Elevator extends SubsystemBase {
 
     public void stop() {
         elevatorMotor.set(0);
+    }
+
+    public double getPosition() {
+        return elevatorMotor.getEncoder().getPosition();
     }
 
 }
