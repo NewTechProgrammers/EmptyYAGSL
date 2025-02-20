@@ -80,4 +80,14 @@ public class Elevator extends SubsystemBase {
         return elevatorMotor.getEncoder().getPosition();
     }
 
+    public void setSetpoint(double position) {
+        if (position > getPosition() && isTopLimitSwitchPressed() || isTopLimitSwitchPressed()) {
+            return;
+        }
+        if (position < getPosition() && isBottomLimitSwitchPressed() || isTopLimitSwitchPressed()) {
+            return;
+        }
+        elevatorMotorPIDController.setReference(position, ControlType.kPosition);
+
+    }
 }
