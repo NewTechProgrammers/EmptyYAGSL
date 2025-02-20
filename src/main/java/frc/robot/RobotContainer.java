@@ -12,6 +12,8 @@ import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.elevator.ElevatorToPositionCommand;
 import frc.robot.commands.elevator.LowerElevatorCommand;
 import frc.robot.commands.elevator.RaiseElevatorCommand;
+import frc.robot.commands.elevatorInternal.LowerInternalElevatorCommand;
+import frc.robot.commands.elevatorInternal.RaiseInternalElevatorCommand;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
@@ -19,7 +21,7 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
 import frc.robot.subsystems.swervedrive.SwerveSubsystem;
 import frc.robot.subsystems.Elevator;
-
+import frc.robot.subsystems.InternalElevator;
 import swervelib.SwerveInputStream;
 
 import java.io.File;
@@ -43,10 +45,11 @@ public class RobotContainer {
                         new File(Filesystem.getDeployDirectory(), "swerve"));
 
         private final Elevator elevator = new Elevator();
+        private final InternalElevator internalElevator = new InternalElevator();
         
         DoubleSupplier driverXboxRightXInverted = () -> -new XboxController(OperatorConstants.kDriverControllerPort)
                         .getRightX();
-        /**
+        /*
          * Converts driver input into a field-relative ChassisSpeeds that is controlled
          * by angular velocity.
          */
@@ -106,6 +109,9 @@ public class RobotContainer {
                 
                 supportXbox.leftBumper().whileTrue(new LowerElevatorCommand(elevator));
                 supportXbox.rightBumper().whileTrue(new RaiseElevatorCommand(elevator));
+
+                supportXbox.leftTrigger().whileTrue(new LowerInternalElevatorCommand(internalElevator));
+                supportXbox.rightTrigger().whileTrue(new RaiseInternalElevatorCommand(internalElevator));
 
                 supportXbox.b().toggleOnTrue(Commands.runOnce(elevator::stop, elevator));
 
