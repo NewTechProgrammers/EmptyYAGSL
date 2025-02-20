@@ -27,11 +27,11 @@ public class Elevator extends SubsystemBase {
                 .inverted(false)
                 .idleMode(IdleMode.kBrake);
         elevatorMotorConfig.encoder
-                .positionConversionFactor(2.0)
+                .positionConversionFactor(2.6601708)
                 .velocityConversionFactor(2.0);
         elevatorMotorConfig.closedLoop
                 .feedbackSensor(FeedbackSensor.kPrimaryEncoder)
-                .pid(0.001, 0.0, 0.0);
+                .pid(0.008, 0, 0.001    );
 
         elevatorMotor.configure(elevatorMotorConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
 
