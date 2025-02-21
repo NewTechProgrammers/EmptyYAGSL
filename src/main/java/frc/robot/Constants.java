@@ -48,6 +48,11 @@ public final class Constants {
     public static final double kMaxLiftSpeed = 0.2;
     public static final double kMinLiftSpeed = 0.1;
     public static final double kLiftConversionFactor = 1.0;
+
+    public static final int    kInTakeSparkMaxPort = 20;
+    public static final double kMaxInTakeSpeed = 0.25;
+    public static final double kMinInTakeSpeed = 0.1;
+    public static final double kInTakeConversionFactor = 1.0;
   }
 
   public static final class DigitalInputConstants {
