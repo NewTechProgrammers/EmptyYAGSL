@@ -16,6 +16,7 @@ import frc.robot.commands.elevatorInternal.LowerInternalElevatorCommand;
 import frc.robot.commands.elevatorInternal.RaiseInternalElevatorCommand;
 import frc.robot.commands.lift.LowerLiftCommand;
 import frc.robot.commands.lift.RaiseLiftCommand;
+import frc.robot.commands.inTake.InTakeTakeCommand;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
@@ -25,6 +26,7 @@ import frc.robot.subsystems.swervedrive.SwerveSubsystem;
 import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.InternalElevator;
 import frc.robot.subsystems.Lift;
+import frc.robot.subsystems.InTake;
 import swervelib.SwerveInputStream;
 
 import java.io.File;
@@ -52,6 +54,8 @@ public class RobotContainer {
         private final InternalElevator internalElevator = new InternalElevator();
 
         private final Lift lift = new Lift();
+
+        private final InTake inTake = new InTake();
         
         DoubleSupplier driverXboxRightXInverted = () -> -new XboxController(OperatorConstants.kDriverControllerPort)
                         .getRightX();
@@ -126,6 +130,8 @@ public class RobotContainer {
 
                 supportXbox.povUp().whileTrue(new LowerLiftCommand(lift));
                 supportXbox.povDown().whileTrue(new RaiseLiftCommand(lift));
+
+                supportXbox.povRight().whileTrue(new InTakeTakeCommand(inTake));
         }
 
         public void setMotorBrake(boolean brake) {
