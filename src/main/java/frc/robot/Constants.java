@@ -47,7 +47,7 @@ public final class Constants {
     public static final int    kLiftSparkMaxPort = 16;
     public static final double kMaxLiftSpeed = 0.2;
     public static final double kMinLiftSpeed = 0.1;
-    public static final double kLiftConversionFactor = 0.0;
+    public static final double kLiftConversionFactor = 1.0;
   }
 
   public static final class DigitalInputConstants {
