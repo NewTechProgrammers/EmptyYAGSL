@@ -4,13 +4,13 @@ import java.util.Set;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Subsystem;
-import frc.robot.subsystems.InTake;
+import frc.robot.subsystems.Intake;
 
-public class InTakeTakeCommand extends Command{
-    private final InTake inTake;
+public class IntakeTakeCommand extends Command{
+    private final Intake intake;
 
-    public InTakeTakeCommand(InTake inTake) {
-        this.inTake = inTake;
+    public IntakeTakeCommand(Intake intake) {
+        this.intake = intake;
     }
 
     @Override
@@ -19,12 +19,12 @@ public class InTakeTakeCommand extends Command{
 
     @Override
     public void execute() {
-        inTake.take();
+        intake.take();
     }
 
     @Override
     public void end(boolean interrupted) {
-        inTake.stop();
+        intake.stop();
     }
 
     @Override
@@ -34,6 +34,6 @@ public class InTakeTakeCommand extends Command{
 
     @Override
     public Set<Subsystem> getRequirements() {
-        return Set.of(inTake);
+        return Set.of(intake);
     }
 }

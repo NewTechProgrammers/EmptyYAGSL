@@ -14,39 +14,39 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.DigitalInputConstants;
 import frc.robot.Constants.MechanismConstants;
 
-public class InTake extends SubsystemBase {
-    private final SparkMax inTakeMotor = new SparkMax(MechanismConstants.kInTakeSparkMaxPort, MotorType.kBrushless);
-    private final SparkMaxConfig inTakeMotorConfig = new SparkMaxConfig();
-    private final SparkClosedLoopController inTakeMotorPIDController = inTakeMotor.getClosedLoopController();
+public class Intake extends SubsystemBase {
+    private final SparkMax intakeMotor = new SparkMax(MechanismConstants.kIntakeSparkMaxPort, MotorType.kBrushless);
+    private final SparkMaxConfig intakeMotorConfig = new SparkMaxConfig();
+    private final SparkClosedLoopController intakeMotorPIDController = intakeMotor.getClosedLoopController();
 
 
-    public InTake() {
-        inTakeMotorConfig
+    public Intake() {
+        intakeMotorConfig
                 .inverted(false)
                 .idleMode(IdleMode.kBrake);
-        inTakeMotorConfig.encoder
-                .positionConversionFactor(MechanismConstants.kInTakeConversionFactor)
+            intakeMotorConfig.encoder
+                .positionConversionFactor(MechanismConstants.kIntakeConversionFactor)
                 .velocityConversionFactor(1.0);
 
-                inTakeMotor.configure(inTakeMotorConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
+                intakeMotor.configure(intakeMotorConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
 
-                inTakeMotor.getEncoder().setPosition(0);
+                intakeMotor.getEncoder().setPosition(0);
     }
 
 
 
 
     public void take() {
-        inTakeMotor.set(MechanismConstants.kMaxInTakeSpeed);
+        intakeMotor.set(MechanismConstants.kMaxIntakeSpeed);
     }
 
 
 
     public void stop() {
-        inTakeMotor.set(0);
+        intakeMotor.set(0);
     }
 
     public double getPosition() {
-        return inTakeMotor.getEncoder().getPosition();
+        return intakeMotor.getEncoder().getPosition();
     }
 }
