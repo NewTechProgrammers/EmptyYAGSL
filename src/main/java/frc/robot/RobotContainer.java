@@ -14,6 +14,8 @@ import frc.robot.commands.elevator.LowerElevatorCommand;
 import frc.robot.commands.elevator.RaiseElevatorCommand;
 import frc.robot.commands.elevatorInternal.LowerInternalElevatorCommand;
 import frc.robot.commands.elevatorInternal.RaiseInternalElevatorCommand;
+import frc.robot.commands.lift.LowerLiftCommand;
+import frc.robot.commands.lift.RaiseLiftCommand;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
@@ -22,6 +24,7 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.subsystems.swervedrive.SwerveSubsystem;
 import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.InternalElevator;
+import frc.robot.subsystems.Lift;
 import swervelib.SwerveInputStream;
 
 import java.io.File;
@@ -47,6 +50,8 @@ public class RobotContainer {
 
         private final Elevator elevator = new Elevator();
         private final InternalElevator internalElevator = new InternalElevator();
+
+        private final Lift lift = new Lift();
         
         DoubleSupplier driverXboxRightXInverted = () -> -new XboxController(OperatorConstants.kDriverControllerPort)
                         .getRightX();
@@ -118,6 +123,9 @@ public class RobotContainer {
 
                 supportXbox.a().onTrue(new ElevatorToPositionCommand(elevator, 450.0));
                 supportXbox.x().onTrue(new ElevatorToPositionCommand(elevator, 20));
+
+                supportXbox.povUp().whileTrue(new LowerLiftCommand(lift));
+                supportXbox.povDown().whileTrue(new RaiseLiftCommand(lift));
         }
 
         public void setMotorBrake(boolean brake) {
