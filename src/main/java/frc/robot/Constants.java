@@ -42,6 +42,12 @@ public final class Constants {
     public static final double kPInternalElevator = 0.0095;
     public static final double kIInternalElevator = 0.0;
     public static final double kDInternalElevator = 0.001;
+
+
+    public static final double kLiftSparkMaxPort = 16;
+    public static final double kMaxLiftSpeed = 0.2;
+    public static final double kMinLiftSpeed = 0.1;
+    public static final double kLiftConversionFactor = 0.0;
   }
 
   public static final class DigitalInputConstants {
