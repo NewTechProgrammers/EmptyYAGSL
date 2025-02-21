@@ -53,6 +53,7 @@ public final class Constants {
   public static final class DigitalInputConstants {
     public static final int    kTopElevatorLimitSwitchPort = 9;
     public static final int    kBottomElevatorLimitSwitchPort = 8;
+    public static final int    kLiftLimitSwitchPort = 7;
   }
 
   public static final class OperatorConstants {
