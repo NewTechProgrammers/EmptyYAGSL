@@ -19,9 +19,29 @@ public final class Constants {
   
     public static final double MAX_SPEED = Units.feetToMeters(4.5);
   
-
   public static final class DrivebaseConstants {
     public static final double WHEEL_LOCK_TIME = 10; // seconds
+  }
+
+  public static final class MechanismConstants {
+    public static final int    kElevatorSparkMaxPort = 18;
+    public static final double kMaxElevatorSpeed = 0.4;
+    public static final double kMinElevatorSpeed = 0.1;
+    public static final double kElevatorConversionFactor = ( 8 / 3 ) * 0.9975641;
+
+    public static final double kPElevator = 0.008;
+    public static final double kIElevator = 0.0;
+    public static final double kDElevator = 0.001;
+    
+
+    public static final int    kInternalElevatorSparkMaxPort = 19;
+    public static final double kMaxInternalElevatorSpeed = 0.3;
+    public static final double kMinInternalElevatorSpeed = 0.02;
+    public static final double kInternalElevatorConversionFactor = ( 47.75 * Math.PI ) / 5;
+
+    public static final double kPInternalElevator = 0.0095;
+    public static final double kIInternalElevator = 0.0;
+    public static final double kDInternalElevator = 0.001;
   }
 
   public static final class OperatorConstants {
