@@ -11,6 +11,7 @@ import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants.DigitalInputConstants;
 import frc.robot.Constants.MechanismConstants;
 
 public class Lift extends SubsystemBase {
@@ -18,7 +19,7 @@ public class Lift extends SubsystemBase {
     private final SparkMaxConfig liftMotorConfig = new SparkMaxConfig();
     private final SparkClosedLoopController liftMotorPIDController = liftMotor.getClosedLoopController();
 
-    DigitalInput liftLimitSwitch = new DigitalInput(7);
+    DigitalInput liftLimitSwitch = new DigitalInput(DigitalInputConstants.kLiftLimitSwitchPort);
 
     public Lift() {
         liftMotorConfig
