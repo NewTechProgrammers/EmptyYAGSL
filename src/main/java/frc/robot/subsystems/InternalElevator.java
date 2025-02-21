@@ -13,24 +13,25 @@ import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants.MechanismConstants;
 
 public class InternalElevator extends SubsystemBase{
-    private final SparkMax internalElevatorMotor = new SparkMax(19, MotorType.kBrushless);
+    private final SparkMax internalElevatorMotor = new SparkMax(MechanismConstants.kInternalElevatorSparkMaxPort, MotorType.kBrushless);
     private final SparkMaxConfig internalElevatorMotorConfig = new SparkMaxConfig();
     private final SparkClosedLoopController internalElevatorMotorPIDController = internalElevatorMotor.getClosedLoopController();
-    private final double maxSpeed = 0.3;
-    private final double minSpeed = 0.02;
+    private final double maxSpeed = MechanismConstants.kMaxInternalElevatorSpeed;
+    private final double minSpeed = MechanismConstants.kMinInternalElevatorSpeed;
     
     public InternalElevator() {
         internalElevatorMotorConfig
                 .inverted(false)
                 .idleMode(IdleMode.kBrake);
         internalElevatorMotorConfig.encoder
-                .positionConversionFactor(2.0)
+                .positionConversionFactor(MechanismConstants.kInternalElevatorConversionFactor)
                 .velocityConversionFactor(2.0);
         internalElevatorMotorConfig.closedLoop
                 .feedbackSensor(FeedbackSensor.kPrimaryEncoder)
-                .pid(0.001, 0.0, 0.0);
+                .pid(MechanismConstants.kPInternalElevator, MechanismConstants.kIInternalElevator, MechanismConstants.kDInternalElevator);
 
         internalElevatorMotor.configure(internalElevatorMotorConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
 
@@ -55,7 +56,7 @@ public class InternalElevator extends SubsystemBase{
     }
 
     public void stop() {
-        internalElevatorMotor.set(0.02);
+        internalElevatorMotor.set(MechanismConstants.kMinInternalElevatorSpeed);
     }
 
     public double getPosition() {
