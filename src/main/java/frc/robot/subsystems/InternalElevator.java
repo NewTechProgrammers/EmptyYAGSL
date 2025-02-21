@@ -18,9 +18,9 @@ public class InternalElevator extends SubsystemBase{
     private final SparkMax internalElevatorMotor = new SparkMax(19, MotorType.kBrushless);
     private final SparkMaxConfig internalElevatorMotorConfig = new SparkMaxConfig();
     private final SparkClosedLoopController internalElevatorMotorPIDController = internalElevatorMotor.getClosedLoopController();
-
+    private final double maxSpeed = 0.3;
+    private final double minSpeed = 0.02;
     
-
     public InternalElevator() {
         internalElevatorMotorConfig
                 .inverted(false)
@@ -35,25 +35,23 @@ public class InternalElevator extends SubsystemBase{
         internalElevatorMotor.configure(internalElevatorMotorConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
 
         internalElevatorMotor.getEncoder().setPosition(0);
-
-        SmartDashboard.putBoolean("Elevator", false);
     }
 
     @Override
     public void periodic() {
-        SmartDashboard.putNumber("ELEVATOR ENCODER", getPosition());
+        SmartDashboard.putNumber("INTERNAL ELEVATOR ENCODER", getPosition());
     }
 
 
-    public void runUp() {
-        internalElevatorMotor.set(0.3);
+    public void runUp(double triggerValue) {
+        double speed = minSpeed + (maxSpeed - minSpeed) * ((triggerValue - 0.5) / 0.5);
+        internalElevatorMotor.set(speed);
 
     }
 
-    public void runDown() {
-        internalElevatorMotor.set(-0.3);
-
-
+    public void runDown(double triggerValue) {
+        double speed = minSpeed + (maxSpeed - minSpeed) * ((triggerValue - 0.5) / 0.5);
+        internalElevatorMotor.set(-speed);
     }
 
     public void stop() {

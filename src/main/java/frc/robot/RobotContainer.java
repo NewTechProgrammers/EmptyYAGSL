@@ -39,6 +39,7 @@ public class RobotContainer {
 
         final CommandXboxController driverXbox = new CommandXboxController(OperatorConstants.kDriverControllerPort);
         final CommandXboxController supportXbox = new CommandXboxController(1);
+        final XboxController supportXboxAdditionalController = new XboxController(1);
 
         // The robot's subsystems and commands are defined here...
         private final SwerveSubsystem drivebase = new SwerveSubsystem(
@@ -110,8 +111,8 @@ public class RobotContainer {
                 supportXbox.leftBumper().whileTrue(new LowerElevatorCommand(elevator));
                 supportXbox.rightBumper().whileTrue(new RaiseElevatorCommand(elevator));
 
-                supportXbox.leftTrigger().whileTrue(new LowerInternalElevatorCommand(internalElevator));
-                supportXbox.rightTrigger().whileTrue(new RaiseInternalElevatorCommand(internalElevator));
+                supportXbox.leftTrigger().whileTrue(new LowerInternalElevatorCommand(internalElevator, () -> supportXboxAdditionalController.getLeftTriggerAxis()));
+                supportXbox.rightTrigger().whileTrue(new RaiseInternalElevatorCommand(internalElevator, () -> supportXboxAdditionalController.getRightTriggerAxis()));
 
                 supportXbox.b().toggleOnTrue(Commands.runOnce(elevator::stop, elevator));
 
