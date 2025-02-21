@@ -44,6 +44,11 @@ public final class Constants {
     public static final double kDInternalElevator = 0.001;
   }
 
+  public static final class DigitalInputConstants {
+    public static final int    kTopElevatorLimitSwitchPort = 9;
+    public static final int    kBottomElevatorLimitSwitchPort = 8;
+  }
+
   public static final class OperatorConstants {
     public static final int kDriverControllerPort = 0;
 
