@@ -19,12 +19,12 @@ public class IntakeTakeCommand extends Command{
 
     @Override
     public void execute() {
-        intake.take();
+        intake.runIntake();
     }
 
     @Override
     public void end(boolean interrupted) {
-        intake.stop();
+        intake.stopIntake();
     }
 
     @Override

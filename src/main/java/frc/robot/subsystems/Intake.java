@@ -33,11 +33,11 @@ public class Intake extends SubsystemBase {
                 intakeMotor.getEncoder().setPosition(0);
     }
 
-    public void take() {
+    public void runIntake() {
         intakeMotor.set(MechanismConstants.kMaxIntakeSpeed);
     }
 
-    public void stop() {
+    public void stopIntake() {
         intakeMotor.set(0);
     }
 
