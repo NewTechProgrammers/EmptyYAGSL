@@ -19,6 +19,7 @@ public class Intake extends SubsystemBase {
     private final SparkMaxConfig intakeMotorConfig = new SparkMaxConfig();
     private final SparkClosedLoopController intakeMotorPIDController = intakeMotor.getClosedLoopController();
 
+    DigitalInput intakeLimitSwitch = new DigitalInput(DigitalInputConstants.kIntakeLimitSwitchPort);
 
     public Intake() {
         intakeMotorConfig
@@ -33,15 +34,19 @@ public class Intake extends SubsystemBase {
                 intakeMotor.getEncoder().setPosition(0);
     }
 
-    public void runIntake() {
+    public boolean intakeLimitSwitch() {
+        return !intakeLimitSwitch.get();
+    }
+
+
+    public void take() {
         intakeMotor.set(MechanismConstants.kMaxIntakeSpeed);
     }
 
-    public void stopIntake() {
-        intakeMotor.set(0);
+    public void shoot() {
+        intakeMotor.set(MechanismConstants.kMaxIntakeShootSpeed);
     }
-
-    public double getPosition() {
-        return intakeMotor.getEncoder().getPosition();
+    public void stop() {
+        intakeMotor.set(0);
     }
 }
