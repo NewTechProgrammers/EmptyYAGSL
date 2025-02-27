@@ -13,6 +13,7 @@ import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants.DigitalInputConstants;
 import frc.robot.Constants.MechanismConstants;
 
 public class InternalElevator extends SubsystemBase{
@@ -21,6 +22,9 @@ public class InternalElevator extends SubsystemBase{
     private final SparkClosedLoopController internalElevatorMotorPIDController = internalElevatorMotor.getClosedLoopController();
     private final double maxSpeed = MechanismConstants.kMaxInternalElevatorSpeed;
     private final double minSpeed = MechanismConstants.kMinInternalElevatorSpeed;
+
+    DigitalInput topLimitSwitch = new DigitalInput(DigitalInputConstants.kTopInternalElevatorLimitSwitchPort);
+    DigitalInput bottomLimitSwitch = new DigitalInput(DigitalInputConstants.kBottomInternalElevatorLimitSwitchPort);
     
     public InternalElevator() {
         internalElevatorMotorConfig
@@ -43,16 +47,31 @@ public class InternalElevator extends SubsystemBase{
         SmartDashboard.putNumber("INTERNAL ELEVATOR ENCODER", getPosition());
     }
 
+    public boolean isTopLimitSwitchPressed() {
+        return !topLimitSwitch.get();
+    }
+
+    public boolean isBottomLimitSwitchPressed() {
+        return !bottomLimitSwitch.get();
+    }
 
     public void runUp(double triggerValue) {
-        double speed = minSpeed + (maxSpeed - minSpeed) * ((triggerValue - 0.5) / 0.5);
-        internalElevatorMotor.set(speed);
+        if (isTopLimitSwitchPressed()) {
+            stop();
+        } else {
+            double speed = minSpeed + (maxSpeed - minSpeed) * ((triggerValue - 0.5) / 0.5);
+            internalElevatorMotor.set(speed);
+        }
 
     }
 
     public void runDown(double triggerValue) {
-        double speed = minSpeed + (maxSpeed - minSpeed) * ((triggerValue - 0.5) / 0.5);
-        internalElevatorMotor.set(-speed);
+        if (isBottomLimitSwitchPressed()) {
+            stop();
+        } else {
+            double speed = minSpeed + (maxSpeed - minSpeed) * ((triggerValue - 0.5) / 0.5);
+            internalElevatorMotor.set(-speed);
+        }
     }
 
     public void stop() {
