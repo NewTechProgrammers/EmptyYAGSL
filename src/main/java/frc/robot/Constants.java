@@ -50,8 +50,8 @@ public final class Constants {
     public static final double kLiftConversionFactor = 1.0;
 
     public static final int    kIntakeSparkMaxPort = 20;
-    public static final double kMaxIntakeSpeed = 0.25;
-    public static final double kMinIntakeSpeed = 0.1;
+    public static final double kMaxIntakeSpeed = 0.10;
+    public static final double kMaxIntakeShootSpeed = 0.30;
     public static final double kIntakeConversionFactor = 1.0;
   }
 

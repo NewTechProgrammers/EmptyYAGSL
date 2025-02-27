@@ -9,22 +9,47 @@ import frc.robot.subsystems.Intake;
 public class IntakeTakeCommand extends Command{
     private final Intake intake;
 
+    private boolean pieceDetected = false;
+    private boolean shootmod = false;
+
     public IntakeTakeCommand(Intake intake) {
         this.intake = intake;
     }
 
     @Override
-    public void initialize() {       
+    public void initialize() {    
+        if (pieceDetected) {
+            shootmod = true;
+        } else {
+            shootmod = false;
+        }
+   
     }
 
     @Override
     public void execute() {
-        intake.runIntake();
+        if (shootmod) {
+            intake.shoot();
+            if (!intake.intakeLimitSwitch()) {
+                pieceDetected = false;
+                shootmod = false;
+            }
+        }
+        else {
+            if (intake.intakeLimitSwitch()) {
+                intake.stop();
+                pieceDetected = true;
+            } else {
+                intake.take();
+                pieceDetected = false;
+            }
+        }
+
     }
 
     @Override
     public void end(boolean interrupted) {
-        intake.stopIntake();
+        intake.stop();
     }
 
     @Override
