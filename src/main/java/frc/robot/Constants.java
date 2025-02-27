@@ -59,6 +59,9 @@ public final class Constants {
     public static final int    kTopElevatorLimitSwitchPort = 9;
     public static final int    kBottomElevatorLimitSwitchPort = 8;
     public static final int    kLiftLimitSwitchPort = 7;
+    public static final int    kIntakeLimitSwitchPort = 6;
+    public static final int    kTopInternalElevatorLimitSwitchPort = 5;
+    public static final int    kBottomInternalElevatorLimitSwitchPort = 4;
   }
 
   public static final class OperatorConstants {
