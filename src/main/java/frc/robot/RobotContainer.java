@@ -125,7 +125,7 @@ public class RobotContainer {
 
                 supportXbox.b().toggleOnTrue(Commands.runOnce(elevator::stop, elevator));
 
-                supportXbox.a().onTrue(new ElevatorToPositionCommand(elevator, 450.0));
+                supportXbox.a().onTrue(new ElevatorToPositionCommand(elevator, 420.0));
                 supportXbox.x().onTrue(new ElevatorToPositionCommand(elevator, 20));
 
                 supportXbox.povUp().whileTrue(new LowerLiftCommand(lift));
