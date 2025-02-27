@@ -16,7 +16,7 @@ import frc.robot.commands.elevatorInternal.LowerInternalElevatorCommand;
 import frc.robot.commands.elevatorInternal.RaiseInternalElevatorCommand;
 import frc.robot.commands.lift.LowerLiftCommand;
 import frc.robot.commands.lift.RaiseLiftCommand;
-import frc.robot.commands.inTake.IntakeTakeCommand;
+import frc.robot.commands.intake.IntakeTakeCommand;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
