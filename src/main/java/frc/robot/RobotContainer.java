@@ -116,6 +116,7 @@ public class RobotContainer {
                 driverXbox.back().whileTrue(Commands.none());
                 driverXbox.leftBumper().whileTrue(Commands.runOnce(drivebase::lock, drivebase).repeatedly());
                 driverXbox.rightBumper().onTrue(Commands.none());
+                driverXbox.x().onTrue(Commands.runOnce(drivebase::addFakeViision));
                 
                 supportXbox.leftBumper().whileTrue(new LowerElevatorCommand(elevator));
                 supportXbox.rightBumper().whileTrue(new RaiseElevatorCommand(elevator));
