@@ -21,6 +21,8 @@ import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Config;
@@ -32,9 +34,12 @@ import swervelib.SwerveDrive;
 import swervelib.SwerveDriveTest;
 import swervelib.math.SwerveMath;
 
+import frc.robot.subsystems.Vision;
+
 public class SwerveSubsystem extends SubsystemBase {
     private final SwerveDrive swerveDrive;
-
+    private Vision vision;
+    
     /**
      * Initialize {@link SwerveDrive} with the directory provided.
      *
@@ -48,7 +53,8 @@ public class SwerveSubsystem extends SubsystemBase {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-
+        
+        this.vision = new Vision(swerveDrive);
         swerveDrive.setHeadingCorrection(false);
         swerveDrive.setCosineCompensator(true);
         swerveDrive.setAngularVelocityCompensation(true,
@@ -178,6 +184,9 @@ public class SwerveSubsystem extends SubsystemBase {
                         this, swerveDrive),
                 3.0, 5.0, 3.0);
     }
+    public void addFakeViision() {
+        swerveDrive.addVisionMeasurement(new Pose2d(3, 3, Rotation2d.fromDegrees(90)), Timer.getFPGATimestamp());
+    }
 
     /**
      * Returns a Command that centers the modules of the SwerveDrive subsystem.
@@ -244,6 +253,16 @@ public class SwerveSubsystem extends SubsystemBase {
         return run(() -> {
             swerveDrive.driveFieldOriented(velocity.get());
         });
+    }
+
+    @Override
+    public void periodic()
+    {
+        swerveDrive.updateOdometry();
+        vision.updateRobotPose2D();
+        Pose2d pose = swerveDrive.getPose();
+        SmartDashboard.putNumber("Swerve robot X", pose.getX());
+        SmartDashboard.putNumber("Swerve robot Y", pose.getY());
     }
 
     /**
