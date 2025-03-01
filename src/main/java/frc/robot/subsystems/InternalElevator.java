@@ -82,5 +82,16 @@ public class InternalElevator extends SubsystemBase{
         return internalElevatorMotor.getEncoder().getPosition();
     }
 
+    public void setSetpoint(double position) {
+        if (position > getPosition() && isTopLimitSwitchPressed() || isTopLimitSwitchPressed()) {
+            return;
+        }
+        if (position < getPosition() && isBottomLimitSwitchPressed() || isTopLimitSwitchPressed()) {
+            return;
+        }
+        internalElevatorMotorPIDController.setReference(position, ControlType.kPosition);
+
+    }
+
 }
 
