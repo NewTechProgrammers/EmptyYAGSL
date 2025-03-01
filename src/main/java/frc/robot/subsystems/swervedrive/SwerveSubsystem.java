@@ -61,7 +61,7 @@ public class SwerveSubsystem extends SubsystemBase {
                 true,
                 0.1);
         swerveDrive.setModuleEncoderAutoSynchronize(true, 1);
-        swerveDrive.pushOffsetsToEncoders();
+        swerveDrive.useExternalFeedbackSensor();
 
         setupPathPlanner();
     }
