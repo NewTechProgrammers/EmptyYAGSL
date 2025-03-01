@@ -35,8 +35,8 @@ public final class Constants {
     
 
     public static final int    kInternalElevatorSparkMaxPort = 19;
-    public static final double kMaxInternalElevatorSpeed = 0.3;
-    public static final double kMinInternalElevatorSpeed = 0.02;
+    public static final double kMaxInternalElevatorSpeed = 0.6;
+    public static final double kMinInternalElevatorSpeed = 0.01;
     public static final double kInternalElevatorConversionFactor = ( 47.75 * Math.PI ) / 81;
 
     public static final double kPInternalElevator = 0.0095;
