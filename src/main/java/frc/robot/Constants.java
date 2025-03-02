@@ -39,9 +39,9 @@ public final class Constants {
     public static final double kMinInternalElevatorSpeed = 0.01;
     public static final double kInternalElevatorConversionFactor = ( 47.75 * Math.PI ) / 81;
 
-    public static final double kPInternalElevator = 0.0095;
+    public static final double kPInternalElevator = 0.1;
     public static final double kIInternalElevator = 0.0;
-    public static final double kDInternalElevator = 0.001;
+    public static final double kDInternalElevator = 0.1;
 
 
     public static final int    kLiftSparkMaxPort = 16;
