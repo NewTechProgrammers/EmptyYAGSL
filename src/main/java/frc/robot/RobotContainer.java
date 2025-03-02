@@ -19,6 +19,7 @@ import frc.robot.commands.general.modules.elevator.RaiseElevatorCommand;
 import frc.robot.commands.general.modules.elevatorInternal.LowerInternalElevatorCommand;
 import frc.robot.commands.general.modules.elevatorInternal.RaiseInternalElevatorCommand;
 import frc.robot.commands.general.modules.intake.IntakeTakeCommand;
+import frc.robot.commands.general.modules.intake.IntakeTimerCommand;
 import frc.robot.commands.general.modules.lift.LowerLiftCommand;
 import frc.robot.commands.general.modules.lift.RaiseLiftCommand;
 
@@ -98,6 +99,9 @@ public class RobotContainer {
                 configureBindings();
                 DriverStation.silenceJoystickConnectionWarning(true);
                 NamedCommands.registerCommand("test", Commands.print("I EXIST"));
+                NamedCommands.registerCommand("Tower L3", new L2Command(internalElevator));
+                NamedCommands.registerCommand("Shoot", new IntakeTimerCommand(intake, 1));
+                
         }
 
         /**
