@@ -1,4 +1,4 @@
-package frc.robot.commands.intake;
+package frc.robot.commands.general.modules.intake;
 
 import java.util.Set;
 

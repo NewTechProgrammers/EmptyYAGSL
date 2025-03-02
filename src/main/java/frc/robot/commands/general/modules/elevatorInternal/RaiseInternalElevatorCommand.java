@@ -1,4 +1,4 @@
-package frc.robot.commands.elevatorInternal;
+package frc.robot.commands.general.modules.elevatorInternal;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Subsystem;
