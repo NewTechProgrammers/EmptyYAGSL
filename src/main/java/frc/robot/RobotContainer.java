@@ -125,10 +125,10 @@ public class RobotContainer {
                 supportXbox.leftTrigger().whileTrue(new LowerInternalElevatorCommand(internalElevator, () -> supportXboxAdditionalController.getLeftTriggerAxis()));
                 supportXbox.rightTrigger().whileTrue(new RaiseInternalElevatorCommand(internalElevator, () -> supportXboxAdditionalController.getRightTriggerAxis()));
 
-                supportXbox.y().onTrue(new InternalElevatorToPositionCommand(internalElevator, 300));
 
                 supportXbox.a().onTrue(new ElevatorToPositionCommand(elevator, 450.0));
                 supportXbox.x().onTrue(new ElevatorToPositionCommand(elevator, 20));
+                supportXbox.y().onTrue(new InternalElevatorToPositionCommand(internalElevator, 120));
 
                 supportXbox.povUp().whileTrue(new LowerLiftCommand(lift));
                 supportXbox.povDown().whileTrue(new RaiseLiftCommand(lift));
