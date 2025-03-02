@@ -9,15 +9,19 @@ import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.XboxController;
 
 import frc.robot.Constants.OperatorConstants;
-import frc.robot.commands.elevator.ElevatorToPositionCommand;
-import frc.robot.commands.elevator.LowerElevatorCommand;
-import frc.robot.commands.elevator.RaiseElevatorCommand;
-import frc.robot.commands.elevatorInternal.InternalElevatorToPositionCommand;
-import frc.robot.commands.elevatorInternal.LowerInternalElevatorCommand;
-import frc.robot.commands.elevatorInternal.RaiseInternalElevatorCommand;
-import frc.robot.commands.lift.LowerLiftCommand;
-import frc.robot.commands.lift.RaiseLiftCommand;
-import frc.robot.commands.intake.IntakeTakeCommand;
+
+import frc.robot.commands.general.levels.L0Command;
+import frc.robot.commands.general.levels.L2Command;
+import frc.robot.commands.general.levels.L3Command;
+import frc.robot.commands.general.levels.L4Command;
+import frc.robot.commands.general.modules.elevator.LowerElevatorCommand;
+import frc.robot.commands.general.modules.elevator.RaiseElevatorCommand;
+import frc.robot.commands.general.modules.elevatorInternal.LowerInternalElevatorCommand;
+import frc.robot.commands.general.modules.elevatorInternal.RaiseInternalElevatorCommand;
+import frc.robot.commands.general.modules.intake.IntakeTakeCommand;
+import frc.robot.commands.general.modules.lift.LowerLiftCommand;
+import frc.robot.commands.general.modules.lift.RaiseLiftCommand;
+
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
@@ -126,14 +130,10 @@ public class RobotContainer {
                 supportXbox.rightTrigger().whileTrue(new RaiseInternalElevatorCommand(internalElevator, () -> supportXboxAdditionalController.getRightTriggerAxis()));
 
 
-                // supportXbox.y().onTrue(); // Zero position
-                // supportXbox.b().onTrue(); // L2
-                // supportXbox.a().onTrue(); // L3
-                // supportXbox.x().onTrue(); // L4
-
-                supportXbox.a().onTrue(new ElevatorToPositionCommand(elevator, 450.0));
-                supportXbox.x().onTrue(new ElevatorToPositionCommand(elevator, 20));
-                supportXbox.y().onTrue(new InternalElevatorToPositionCommand(internalElevator, 120));
+                supportXbox.y().onTrue(new L0Command(elevator, internalElevator));
+                supportXbox.b().onTrue(new L2Command(internalElevator));
+                supportXbox.a().onTrue(new L3Command(elevator, internalElevator));
+                supportXbox.x().onTrue(new L4Command(elevator, internalElevator));
 
                 supportXbox.povUp().whileTrue(new LowerLiftCommand(lift));
                 supportXbox.povDown().whileTrue(new RaiseLiftCommand(lift));
