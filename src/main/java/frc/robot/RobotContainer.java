@@ -20,6 +20,8 @@ import frc.robot.commands.general.modules.elevatorInternal.LowerInternalElevator
 import frc.robot.commands.general.modules.elevatorInternal.RaiseInternalElevatorCommand;
 import frc.robot.commands.general.modules.intake.IntakeTakeCommand;
 import frc.robot.commands.general.modules.intake.IntakeTimerCommand;
+import frc.robot.commands.general.modules.ballintake.ballIntakeShootCommand;
+import frc.robot.commands.general.modules.ballintake.ballIntakeTakeCommand;
 import frc.robot.commands.general.modules.lift.LowerLiftCommand;
 import frc.robot.commands.general.modules.lift.RaiseLiftCommand;
 
@@ -29,6 +31,7 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
 import frc.robot.subsystems.swervedrive.SwerveSubsystem;
+import frc.robot.subsystems.BallIntake;
 import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.InternalElevator;
 import frc.robot.subsystems.LEDSubsystem;
@@ -63,6 +66,7 @@ public class RobotContainer {
         private final Lift lift = new Lift();
 
         private final Intake intake = new Intake();
+        private final BallIntake ballIntake = new BallIntake();
 
         public static final LEDSubsystem leds = new LEDSubsystem();
         
@@ -128,6 +132,9 @@ public class RobotContainer {
                 driverXbox.leftBumper().whileTrue(Commands.runOnce(drivebase::lock, drivebase).repeatedly());
                 driverXbox.rightBumper().onTrue(Commands.none());
                 driverXbox.x().onTrue(Commands.runOnce(drivebase::addFakeViision));
+
+                driverXbox.povLeft().whileTrue(new ballIntakeTakeCommand(ballIntake));
+                driverXbox.povRight().whileTrue(new ballIntakeShootCommand(ballIntake));
                 
                 supportXbox.leftBumper().whileTrue(new LowerElevatorCommand(elevator));
                 supportXbox.rightBumper().whileTrue(new RaiseElevatorCommand(elevator));
