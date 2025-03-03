@@ -99,9 +99,8 @@ public class RobotContainer {
                 configureBindings();
                 DriverStation.silenceJoystickConnectionWarning(true);
                 NamedCommands.registerCommand("test", Commands.print("I EXIST"));
-                NamedCommands.registerCommand("Tower L3", new L2Command(internalElevator));
+                NamedCommands.registerCommand("Tower L3", new L2Command(elevator, internalElevator));
                 NamedCommands.registerCommand("Shoot", new IntakeTimerCommand(intake, 1));
-                
         }
 
         /**
@@ -135,7 +134,7 @@ public class RobotContainer {
 
 
                 supportXbox.y().onTrue(new L0Command(elevator, internalElevator));
-                supportXbox.b().onTrue(new L2Command(internalElevator));
+                supportXbox.b().onTrue(new L2Command(elevator, internalElevator));
                 supportXbox.a().onTrue(new L3Command(elevator, internalElevator));
                 supportXbox.x().onTrue(new L4Command(elevator, internalElevator));
 

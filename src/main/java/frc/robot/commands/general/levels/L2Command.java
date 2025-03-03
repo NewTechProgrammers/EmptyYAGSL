@@ -1,35 +1,17 @@
 package frc.robot.commands.general.levels;
 
-import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
+import frc.robot.commands.general.modules.elevator.ElevatorToPositionCommand;
 import frc.robot.commands.general.modules.elevatorInternal.InternalElevatorToPositionCommand;
+import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.InternalElevator;
 
-public class L2Command extends Command {
+public class L2Command extends ParallelCommandGroup {
+    private final Elevator elevator;
     private final InternalElevator internalElevator;
-    private final Command l2Command;
-
-    public L2Command(InternalElevator internalElevator) {
-        this.internalElevator = internalElevator;
-        this.l2Command = new InternalElevatorToPositionCommand(this.internalElevator, 120);
-    }
-
-    @Override
-    public void initialize() {
-        l2Command.initialize();
-    }
-
-    @Override
-    public void execute() {
-        l2Command.execute();
-    }
-
-    @Override
-    public void end(boolean interrupted) {
-        l2Command.end(interrupted);
-    }
-
-    @Override
-    public boolean isFinished() {
-        return l2Command.isFinished();
+    
+    public L2Command(Elevator elevator, InternalElevator internalElevator) {
+        this.elevator = elevator; this.internalElevator = internalElevator;
+        addCommands(new ElevatorToPositionCommand(this.elevator, 0), new InternalElevatorToPositionCommand(this.internalElevator, 120));
     }
 }
