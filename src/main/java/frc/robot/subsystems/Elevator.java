@@ -24,6 +24,13 @@ public class Elevator extends SubsystemBase {
     DigitalInput topLimitSwitch = new DigitalInput(DigitalInputConstants.kTopElevatorLimitSwitchPort);
     DigitalInput bottomLimitSwitch = new DigitalInput(DigitalInputConstants.kBottomElevatorLimitSwitchPort);
 
+    private final double minPosition = 0;
+    private final double maxPosition = 581;
+
+    private final double fullSpeedStart = 40;
+    private final double fullSpeedEnd = 541;
+    private final double lambda = 0.02;
+
     public Elevator() {
         elevatorMotorConfig
                 .inverted(false)
@@ -61,7 +68,7 @@ public class Elevator extends SubsystemBase {
         if (isTopLimitSwitchPressed()) {
             elevatorMotor.set(0);
         } else {
-            elevatorMotor.set(MechanismConstants.kMaxElevatorSpeed);
+            elevatorMotor.set(getExponentialLimitedSpeed(MechanismConstants.kMaxElevatorSpeed, getPosition()));
         }
     }
 
@@ -69,12 +76,27 @@ public class Elevator extends SubsystemBase {
         if (isBottomLimitSwitchPressed()) {
             elevatorMotor.set(0);
         } else {
-            elevatorMotor.set(-MechanismConstants.kMaxElevatorSpeed);
+            elevatorMotor.set(getExponentialLimitedSpeed(-MechanismConstants.kMaxElevatorSpeed, getPosition()));
         }
     }
 
     public void stop() {
         elevatorMotor.set(0);
+    }
+
+    public double getExponentialLimitedSpeed(double desiredSpeed, double currentPosition) {
+        double distanceToLimit = Math.min(currentPosition - minPosition, maxPosition - currentPosition);
+
+        double scale = Math.exp(-lambda * (fullSpeedStart - distanceToLimit));
+
+        scale = Math.max(0, Math.min(1, scale));
+
+        double limitedSpeed = MechanismConstants.kMaxElevatorSpeed * scale * Math.signum(desiredSpeed);
+        if (Math.abs(limitedSpeed) < 0.15 && limitedSpeed != 0) {
+            limitedSpeed = Math.signum(limitedSpeed) * 0.15;
+        }
+
+        return limitedSpeed;
     }
 
     public double getPosition() {
