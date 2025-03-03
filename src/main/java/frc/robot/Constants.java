@@ -65,10 +65,17 @@ public final class Constants {
   public static final class DigitalInputConstants {
     public static final int    kTopElevatorLimitSwitchPort = 9;
     public static final int    kBottomElevatorLimitSwitchPort = 8;
+
     public static final int    kLiftLimitSwitchPort = 7;
+
     public static final int    kIntakeLimitSwitchPort = 6;
+
     public static final int    kTopInternalElevatorLimitSwitchPort = 4;
     public static final int    kBottomInternalElevatorLimitSwitchPort = 5;
+
+    public static final int    kRedLedPort = 3;
+    public static final int    kGreenLedPort = 2;
+    public static final int    kBlueLedPort = 1;
   }
 
   public static final class OperatorConstants {
