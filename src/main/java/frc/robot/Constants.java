@@ -25,7 +25,7 @@ public final class Constants {
 
   public static final class MechanismConstants {
     public static final int    kElevatorSparkMaxPort = 18;
-    public static final double kMaxElevatorSpeed = 0.65;
+    public static final double kMaxElevatorSpeed = 0.55;
     public static final double kMinElevatorSpeed = 0.1;
     public static final double kElevatorConversionFactor = ( 8 / 3 ) * 0.9975641;
 
