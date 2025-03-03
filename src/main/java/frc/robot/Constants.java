@@ -60,6 +60,12 @@ public final class Constants {
     public static final double kMaxIntakeSpeed = 0.10;
     public static final double kMaxIntakeShootSpeed = 0.30;
     public static final double kIntakeConversionFactor = 1.0;
+
+    public static final int    kBallIntakeLeftSparkMaxPort = 26;
+    public static final int    kBallIntakeRightSparkMaxPort = 24;
+    public static final double kMaxBallIntakeSpeed = 1;
+    public static final double kMaxBallIntakeShootSpeed = 1;
+    public static final double kBallIntakeConversionFactor = 1.0;
   }
 
   public static final class DigitalInputConstants {
