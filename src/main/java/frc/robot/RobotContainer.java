@@ -31,6 +31,7 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.subsystems.swervedrive.SwerveSubsystem;
 import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.InternalElevator;
+import frc.robot.subsystems.LEDSubsystem;
 import frc.robot.subsystems.Lift;
 import frc.robot.subsystems.Intake;
 import swervelib.SwerveInputStream;
@@ -46,7 +47,7 @@ import com.pathplanner.lib.auto.NamedCommands;
  * periodic methods (other than the scheduler calls).  Instead, the structure of the robot
  * (including subsystems, commands, and button mappings) should be declared here.
  */
-public class RobotContainer {
+public class RobotContainer {   
 
         final CommandXboxController driverXbox = new CommandXboxController(OperatorConstants.kDriverControllerPort);
         final CommandXboxController supportXbox = new CommandXboxController(1);
@@ -62,6 +63,8 @@ public class RobotContainer {
         private final Lift lift = new Lift();
 
         private final Intake intake = new Intake();
+
+        private final LEDSubsystem leds = new LEDSubsystem();
         
         DoubleSupplier driverXboxRightXInverted = () -> -new XboxController(OperatorConstants.kDriverControllerPort)
                         .getRightX();
@@ -142,6 +145,8 @@ public class RobotContainer {
                 supportXbox.povDown().whileTrue(new RaiseLiftCommand(lift));
 
                 supportXbox.povRight().whileTrue(new IntakeTakeCommand(intake));
+
+                leds.setColor(true, false, true);
         }
 
         public void setMotorBrake(boolean brake) {
