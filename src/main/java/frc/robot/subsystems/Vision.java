@@ -9,12 +9,16 @@ import swervelib.SwerveDrive;
 public class Vision extends SubsystemBase {
     private final SwerveDrive swerveDrive;
 
+    public static boolean doRejectUpdate = false;
+    public static boolean twoTags = false;
+
     public Vision(SwerveDrive swerveDrive) {
         this.swerveDrive = swerveDrive;
     }
 
     public void updateRobotPose2D() {
-        boolean doRejectUpdate = false;
+        doRejectUpdate = false;
+        twoTags = false;
         String rejectReason = "None"; 
 
         
@@ -36,6 +40,8 @@ public class Vision extends SubsystemBase {
             rejectReason = "No Tags";
         }
 
+        twoTags = mt1.tagCount == 2 ? true : false;
+
         SmartDashboard.putBoolean("Vision Update Rejected", doRejectUpdate);
         SmartDashboard.putString("Vision Reject Reason", rejectReason);
 
@@ -43,7 +49,7 @@ public class Vision extends SubsystemBase {
             Pose2d robotPose = mt1.pose;
             double timestamp = mt1.timestampSeconds;
 
-            // Обновляем позицию только если данные прошли проверку
+            // Update'ujemy pozycje tylko wtedy, kiedy dane sa ok
             swerveDrive.addVisionMeasurement(robotPose, timestamp);
         }
     }

@@ -64,7 +64,7 @@ public class RobotContainer {
 
         private final Intake intake = new Intake();
 
-        private final LEDSubsystem leds = new LEDSubsystem();
+        public static final LEDSubsystem leds = new LEDSubsystem();
         
         DoubleSupplier driverXboxRightXInverted = () -> -new XboxController(OperatorConstants.kDriverControllerPort)
                         .getRightX();
