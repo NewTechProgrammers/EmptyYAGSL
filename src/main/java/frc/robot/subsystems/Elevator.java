@@ -24,13 +24,6 @@ public class Elevator extends SubsystemBase {
     DigitalInput topLimitSwitch = new DigitalInput(DigitalInputConstants.kTopElevatorLimitSwitchPort);
     DigitalInput bottomLimitSwitch = new DigitalInput(DigitalInputConstants.kBottomElevatorLimitSwitchPort);
 
-    private final double minPosition = 0;
-    private final double maxPosition = 581;
-
-    private final double fullSpeedStart = 40;
-    private final double fullSpeedEnd = 541;
-    private final double lambda = 0.02;
-
     public Elevator() {
         elevatorMotorConfig
                 .inverted(false)
@@ -85,9 +78,9 @@ public class Elevator extends SubsystemBase {
     }
 
     public double getExponentialLimitedSpeed(double desiredSpeed, double currentPosition) {
-        double distanceToLimit = Math.min(currentPosition - minPosition, maxPosition - currentPosition);
+        double distanceToLimit = Math.min(currentPosition - MechanismConstants.kMinElevatorPosition, MechanismConstants.kMaxElevatorPosition - currentPosition);
 
-        double scale = Math.exp(-lambda * (fullSpeedStart - distanceToLimit));
+        double scale = Math.exp(-MechanismConstants.lambda * (MechanismConstants.kElevatorfullSpeedStartPosition - distanceToLimit));
 
         scale = Math.max(0, Math.min(1, scale));
 
