@@ -36,9 +36,9 @@ public final class Constants {
     public static final double lambda = 0.02;
     public static final double kMaxElevatorMovePosition = 381;
 
-    public static final double kPElevator = 0.001;
+    public static final double kPElevator = 0.1;
     public static final double kIElevator = 0.0;
-    public static final double kDElevator = 0.001;
+    public static final double kDElevator = 0.03;
     
 
     public static final int    kInternalElevatorSparkMaxPort = 19;
