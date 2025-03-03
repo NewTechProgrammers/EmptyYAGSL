@@ -29,6 +29,13 @@ public final class Constants {
     public static final double kMinElevatorSpeed = 0.1;
     public static final double kElevatorConversionFactor = ( 8 / 3 ) * 0.9975641;
 
+    public static final double kMaxElevatorPosition = 581;
+    public static final double kMinElevatorPosition = 0;
+    public static final double kElevatorfullSpeedStartPosition = 40;
+    public static final double kElevatorfullSpeedEndPosition = 541;
+    public static final double lambda = 0.02;
+    public static final double kMaxElevatorMovePosition = 381;
+
     public static final double kPElevator = 0.001;
     public static final double kIElevator = 0.0;
     public static final double kDElevator = 0.001;
