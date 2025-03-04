@@ -131,10 +131,11 @@ public class RobotContainer {
                 driverXbox.back().whileTrue(Commands.none());
                 driverXbox.leftBumper().whileTrue(Commands.runOnce(drivebase::lock, drivebase).repeatedly());
                 driverXbox.rightBumper().onTrue(Commands.none());
-                driverXbox.x().onTrue(Commands.runOnce(drivebase::addFakeViision));
 
                 driverXbox.povLeft().whileTrue(new ballIntakeTakeCommand(ballIntake));
                 driverXbox.povRight().whileTrue(new ballIntakeShootCommand(ballIntake));
+                //driverXbox.povUp().whileTrue(new MoveLinearServoToMaxPosition(linearServo));
+                //driverXbox.povDown().whileTrue(new MoveLinearServoToMinPosition(linearServo));
                 
                 supportXbox.leftBumper().whileTrue(new LowerElevatorCommand(elevator));
                 supportXbox.rightBumper().whileTrue(new RaiseElevatorCommand(elevator));
@@ -148,9 +149,9 @@ public class RobotContainer {
                 supportXbox.a().onTrue(new L3Command(elevator, internalElevator));
                 supportXbox.x().onTrue(new L4Command(elevator, internalElevator));
 
-                supportXbox.povUp().whileTrue(new LowerLiftCommand(lift));
-                supportXbox.povDown().whileTrue(new RaiseLiftCommand(lift));
-
+                supportXbox.povUp().whileTrue(new ballIntakeTakeCommand(ballIntake));
+                supportXbox.povLeft().whileTrue(new LowerLiftCommand(lift));
+                supportXbox.povDown().whileTrue(new ballIntakeShootCommand(ballIntake));
                 supportXbox.povRight().whileTrue(new IntakeTakeCommand(intake));
 
                 leds.setColor(true, false, true);
