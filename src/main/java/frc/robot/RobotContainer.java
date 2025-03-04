@@ -24,6 +24,7 @@ import frc.robot.commands.general.modules.ballintake.ballIntakeShootCommand;
 import frc.robot.commands.general.modules.ballintake.ballIntakeTakeCommand;
 import frc.robot.commands.general.modules.lift.LowerLiftCommand;
 import frc.robot.commands.general.modules.lift.RaiseLiftCommand;
+import frc.robot.commands.general.modules.intake.IntakeGoCommand;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
@@ -106,8 +107,11 @@ public class RobotContainer {
                 configureBindings();
                 DriverStation.silenceJoystickConnectionWarning(true);
                 NamedCommands.registerCommand("test", Commands.print("I EXIST"));
-                NamedCommands.registerCommand("Tower L3", new L2Command(elevator, internalElevator));
+                NamedCommands.registerCommand("Tower L3", new L3Command(elevator, internalElevator));
                 NamedCommands.registerCommand("Shoot", new IntakeTimerCommand(intake, 1));
+                NamedCommands.registerCommand("Tower L2", new L2Command(elevator, internalElevator));
+                NamedCommands.registerCommand("Tower L0", new L0Command(elevator, internalElevator));
+                NamedCommands.registerCommand("Take", new IntakeGoCommand(intake));
         }
 
         /**
