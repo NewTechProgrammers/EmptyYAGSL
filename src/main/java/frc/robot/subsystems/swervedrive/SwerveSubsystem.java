@@ -123,9 +123,9 @@ public class SwerveSubsystem extends SubsystemBase {
                     new PPHolonomicDriveController(
                             // PPHolonomicController is the built in path following controller for holonomic
                             // drive trains
-                            new PIDConstants(5.0, 0.0, 0.0),
+                            new PIDConstants(4.5, 0.0, 1.5), //i = 0.001, d = 2
                             // Translation PID constants
-                            new PIDConstants(5.0, 0.0, 0.0)
+                            new PIDConstants(3.0, 0.0, 0.5) // p = 3.0 d = 0.1
                     // Rotation PID constants
                     ),
                     config,
@@ -177,8 +177,8 @@ public class SwerveSubsystem extends SubsystemBase {
     public Command driveToPose(Pose2d pose) {
         // Create the constraints to use while pathfinding
         PathConstraints constraints = new PathConstraints(
-                swerveDrive.getMaximumChassisVelocity(), 4.0,
-                swerveDrive.getMaximumChassisAngularVelocity(), Units.degreesToRadians(720));
+                1.0, 4.0,
+                1.0, Units.degreesToRadians(720));
 
         // Since AutoBuilder is configured, we can use it to build pathfinding commands
         return AutoBuilder.pathfindToPose(
