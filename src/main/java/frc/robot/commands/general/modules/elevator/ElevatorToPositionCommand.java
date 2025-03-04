@@ -10,7 +10,7 @@ import frc.robot.subsystems.Elevator;
 public class ElevatorToPositionCommand extends Command  {
     private final Elevator elevator;
     private final double setpoint;
-    private static final double TOLERANCE = 0.05;
+    private static final double TOLERANCE = 1;
 
     public ElevatorToPositionCommand(Elevator elevator, double setpoint) {
         this.elevator = elevator;

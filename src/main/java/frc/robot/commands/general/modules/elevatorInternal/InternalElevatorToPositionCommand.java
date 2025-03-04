@@ -10,7 +10,7 @@ import frc.robot.subsystems.InternalElevator;
 public class InternalElevatorToPositionCommand extends Command  {
     private final InternalElevator internalElevator;
     private final double setpoint;
-    private static final double TOLERANCE = 0.05;
+    private static final double TOLERANCE = 1.7;
 
     public InternalElevatorToPositionCommand(InternalElevator internalElevator, double setpoint) {
         this.internalElevator = internalElevator;
