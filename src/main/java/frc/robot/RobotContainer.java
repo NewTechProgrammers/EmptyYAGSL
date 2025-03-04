@@ -130,6 +130,7 @@ public class RobotContainer {
 
                 drivebase.setDefaultCommand(driveFieldOrientedAnglularVelocity);
 
+                driverXbox.rightBumper().whileTrue(driveRobotOrientedAngularVelocity).whileFalse(driveFieldOrientedAnglularVelocity);
                 driverXbox.a().onTrue((Commands.runOnce(drivebase::zeroGyro)));
                 driverXbox.start().whileTrue(Commands.none());
                 driverXbox.back().whileTrue(Commands.none());
