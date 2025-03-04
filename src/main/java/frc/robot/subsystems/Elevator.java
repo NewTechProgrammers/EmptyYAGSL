@@ -10,6 +10,7 @@ import com.revrobotics.spark.config.SparkMaxConfig;
 import com.revrobotics.spark.config.ClosedLoopConfig.FeedbackSensor;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 
+import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -20,9 +21,13 @@ public class Elevator extends SubsystemBase {
     private final SparkMax elevatorMotor = new SparkMax(MechanismConstants.kElevatorSparkMaxPort, MotorType.kBrushless);
     private final SparkMaxConfig elevatorMotorConfig = new SparkMaxConfig();
     private final SparkClosedLoopController elevatorMotorPIDController = elevatorMotor.getClosedLoopController();
+    private final PIDController elevatorMotorWPILIBController;
 
     DigitalInput topLimitSwitch = new DigitalInput(DigitalInputConstants.kTopElevatorLimitSwitchPort);
     DigitalInput bottomLimitSwitch = new DigitalInput(DigitalInputConstants.kBottomElevatorLimitSwitchPort);
+
+    private final double MAX_SPEED_UP = 0.6;
+    private final double MAX_SPEED_DOWN = 0.4;
 
     public Elevator() {
         elevatorMotorConfig
@@ -38,6 +43,9 @@ public class Elevator extends SubsystemBase {
         elevatorMotor.configure(elevatorMotorConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
 
         elevatorMotor.getEncoder().setPosition(0);
+
+        elevatorMotorWPILIBController = new PIDController(0.0405, 0.0, 0.0);
+        elevatorMotorWPILIBController.setTolerance(1.0);
 
         SmartDashboard.putBoolean("Elevator", false);
     }
@@ -105,5 +113,25 @@ public class Elevator extends SubsystemBase {
         }
         elevatorMotorPIDController.setReference(position, ControlType.kPosition);
 
+    }
+
+    public void moveToPositionWPILIB(double targetPosition, boolean goingUp) {
+        if (targetPosition > getPosition() && isTopLimitSwitchPressed() || isTopLimitSwitchPressed()) {
+            return;
+        }
+        if (targetPosition < getPosition() && isBottomLimitSwitchPressed() || isTopLimitSwitchPressed()) {
+            return;
+        }
+
+        if (goingUp) { elevatorMotorWPILIBController.setPID(0.05, 0.0, 0.0); }
+        else { elevatorMotorWPILIBController.setPID(0.0405, 0.0, 0.0); }
+
+        double pidOutput = elevatorMotorWPILIBController.calculate(getPosition(), targetPosition);
+        double maxSpeed = goingUp ? MAX_SPEED_UP : MAX_SPEED_DOWN;
+        elevatorMotor.set(Math.max(-maxSpeed, Math.min(pidOutput, maxSpeed)));
+    }
+
+    public boolean atSetpoint() {
+        return elevatorMotorWPILIBController.atSetpoint();
     }
 }
